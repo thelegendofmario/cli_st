@@ -83,6 +83,7 @@ func CheckOffItem(item string) {
 		for _, str := range fileContent {
 			f.WriteString(str + "\n")
 		}
+
 		f.Close()
 	}
 }
