@@ -57,6 +57,7 @@ func CheckOffItem(item string) {
 	if err != nil {
 		check(err)
 	} else {
+		//fmt.Println(arg)
 		file, err := os.OpenFile(defaultPlan, os.O_CREATE|os.O_RDWR, os.ModeAppend)
 		check(err)
 
@@ -65,16 +66,17 @@ func CheckOffItem(item string) {
 
 		for scanner.Scan() {
 			fileContent = append(fileContent, scanner.Text())
+			//fmt.Println(scanner.Text())
 		}
-
+		file.Close()
 		fileContent[arg] = chkoff(fileContent[arg])
 		fmt.Println(fileContent[arg])
-		file.Close()
+		//fmt.Println(fileContent[arg+1])
 		f, err := os.Create(defaultPlan)
 		if err != nil {
 			check(err)
 		}
-		f.WriteString("\n")
+		//f.WriteString("\n")
 		for _, str := range fileContent {
 			f.WriteString(str + "\n")
 		}
