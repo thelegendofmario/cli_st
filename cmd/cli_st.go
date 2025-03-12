@@ -69,6 +69,9 @@ func CheckOffItem(item string) {
 			//fmt.Println(scanner.Text())
 		}
 		file.Close()
+		if arg > len(fileContent) {
+			return
+		}
 		fileContent[arg] = chkoff(fileContent[arg])
 		fmt.Println(fileContent[arg])
 		//fmt.Println(fileContent[arg+1])
@@ -97,5 +100,5 @@ func check(e error) {
 func chkoff(item string) (ret string) {
 	// arg: "[ ] something, something"
 	// want to return "[x] something, something"
-	return strings.Replace(item, " ", "x", 1)
+	return strings.Replace(item, "[ ]", "[x]", 1)
 }
