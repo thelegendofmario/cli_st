@@ -11,6 +11,10 @@ to install, you can either download the binary from the releases, or you can clo
 ## How Do I use It?
 
 if you run it with no arguments, it won't do anything. (we know, that will be fixed!) the arguments you can choose are: 
-* `create [no arguments]` which creates a new blank `.plan.txt` file in your home directory, 
-* `add [item, multiple words are in quotes]` which adds a new item to your todo list, and 
-* `check-off [number of the item]` which checks an item off.
+| command | function | aliases |
+|-----|-----|-------|
+| `help` | display help | `--help`, `-h` |
+| `create` | create `.plan.txt` file in home directory | `new` |
+| `add ITEM` | adds `ITEM` to the plan file |  |
+| `check-off ITEM (number)` | checks off an item in the plan file | `done`, `chkoff` |
+| `delete ITEM (number)` | deletes `ITEM` (which is a number) from the todo list | `del` |
