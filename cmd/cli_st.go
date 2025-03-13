@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -88,6 +89,43 @@ func CheckOffItem(item string) {
 	}
 }
 
+func DeleteItem(item string) {
+	fileContent := []string{}
+	arg, err := strconv.Atoi(item)
+	if err != nil {
+		check(err)
+	} else {
+		//fmt.Println(arg)
+		file, err := os.OpenFile(defaultPlan, os.O_CREATE|os.O_RDWR, os.ModeAppend)
+		check(err)
+
+		scanner := bufio.NewScanner(file)
+		scanner.Split(bufio.ScanLines)
+
+		for scanner.Scan() {
+			fileContent = append(fileContent, scanner.Text())
+			//fmt.Println(scanner.Text())
+		}
+		file.Close()
+		if arg > len(fileContent) {
+			return
+		}
+		fmt.Println(fileContent)
+		fileContent = slices.Delete(fileContent, arg, arg+1)
+		fmt.Println(fileContent)
+		f, err := os.Create(defaultPlan)
+		if err != nil {
+			check(err)
+		}
+		//f.WriteString("\n")
+		for _, str := range fileContent {
+			f.WriteString(str + "\n")
+		}
+
+		f.Close()
+	}
+}
+
 func PrintAtOpen() {
 	fmt.Println("add 'cat .plan.txt' into your .bashrc file. that should work.\n the ablilty to programatically do that is coming soon!")
 }
@@ -103,3 +141,7 @@ func chkoff(item string) (ret string) {
 	// want to return "[x] something, something"
 	return strings.Replace(item, "[ ]", "[x]", 1)
 }
+
+// func del(slice []string) (retSlice []string) {
+// 	slices.Delete()
+// }
